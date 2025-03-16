@@ -1,15 +1,22 @@
 "use client";
 import { useState } from "react";
 import ForgotPasswordModal from "@/app/components/ForgotPasswordModal";
+import CreateAccountModal from "@/app/components/CreateAccountModal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from 'next/image'
 
 export default function Home() {
-  const [show, setShow] = useState(false);
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handleCloseForgotPassword = () => setShowForgotPasswordModal(false);
+  const handleCloseAccountModal = () => setShowCreateAccountModal(false);
+
+  const handleShowForgotPasswordModal = () => setShowForgotPasswordModal(true);
+  const handleShowCreateAccountModal = () => setShowCreateAccountModal(true);
+
 
   return (
     <div className="container mt-5 mb-5">
@@ -44,10 +51,10 @@ export default function Home() {
                 Sign In
               </Button>
               <div className="mt-3">
-                <Button variant="link" onClick={handleShow}>
+                <Button variant="link" onClick={handleShowForgotPasswordModal}>
                   Forgot password?
                 </Button>
-                <Button variant="link">
+                <Button variant="link" onClick={handleShowCreateAccountModal}>
                   Don&apos;t have an account? Sign up
                 </Button>
                 </div>
@@ -55,7 +62,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {show && <ForgotPasswordModal handleClose={handleClose} show={show} />}
+      {showForgotPasswordModal && <ForgotPasswordModal handleClose={handleCloseForgotPassword} show={showForgotPasswordModal} />}
+      {showCreateAccountModal && <CreateAccountModal handleClose={handleCloseAccountModal} show={showCreateAccountModal} />}
+
     </div>
   );
 }
