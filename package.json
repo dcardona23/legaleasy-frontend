@@ -11,8 +11,10 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "next": "15.2.2",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
