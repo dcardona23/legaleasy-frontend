@@ -16,7 +16,8 @@ export default function Home() {
         <div className="col-md-6 d-flex justify-content-center align-items-center">
           <Image
             className="img-fluid"
-            style={{ height: "700px", objectFit: "cover" }}
+            width={500}
+            height={300}
             src="/assets/scales.jpeg"
             alt="art deco scales of justice"
           />
