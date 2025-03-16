@@ -13,7 +13,7 @@ function ForgotPasswordModal({ handleClose, show }) {
           <Modal.Header closeButton>
             <Modal.Title>Password Reset</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Enter your email address and we'll send you an email with instructions to reset your password.</Modal.Body>
+          <Modal.Body>Enter your email address and we&aposll send you an email with instructions to reset your password.</Modal.Body>
           <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail" style ={{ margin: '20px' }}>
           <Form.Label>Email address</Form.Label>
