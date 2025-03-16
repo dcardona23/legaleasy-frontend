@@ -60,7 +60,7 @@ export default function Home() {
                 <Button variant="link" onClick={handleShow}>
                   Forgot password?
                 </Button>
-                <Button variant="link">Don't have an account? Sign up</Button>
+                <Button variant="link">Don&apost have an account? Sign up</Button>
               </div>
             </form>
           </div>
