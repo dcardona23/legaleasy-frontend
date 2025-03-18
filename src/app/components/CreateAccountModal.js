@@ -18,7 +18,6 @@ function CreateAccountModal({ handleClose, show }) {
       alert('Passwords do not match!')
       return
     }
-    console.log("first name: ", firstName)
     registerUser({ firstName, lastName, email, password, password_confirmation: confirmPassword })
   }
 

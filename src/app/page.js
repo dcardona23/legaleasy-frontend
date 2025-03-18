@@ -4,12 +4,14 @@ import ForgotPasswordModal from "@/app/components/ForgotPasswordModal";
 import CreateAccountModal from "@/app/components/CreateAccountModal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Image from 'next/image'
+import Image from "next/image";
+import { createSession } from "@/legalEasyApiCalls";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
-
 
   const handleCloseForgotPassword = () => setShowForgotPasswordModal(false);
   const handleCloseAccountModal = () => setShowCreateAccountModal(false);
@@ -17,6 +19,10 @@ export default function Home() {
   const handleShowForgotPasswordModal = () => setShowForgotPasswordModal(true);
   const handleShowCreateAccountModal = () => setShowCreateAccountModal(true);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createSession({ email, password });
+  };
 
   return (
     <div className="container mt-5 mb-5">
@@ -34,14 +40,22 @@ export default function Home() {
         <div className="col-md-6 d-flex justify-content-center align-items-center">
           <div className="text-center w-75">
             <h1 className="text-primary display-3 fw-bold mb-4">LegalEasy</h1>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <h2 className="mb-3 fw-normal">Please sign in</h2>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="email" placeholder="Enter email"/>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control type="password" placeholder="Enter password"/>
-              </Form.Group>
+              <Form.Control
+                className="mb-2"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Form.Control
+                className="mb-2"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <div className="d-flex align-items-center">
                   <Form.Check type="checkbox" label="Remember Me" />
@@ -57,14 +71,23 @@ export default function Home() {
                 <Button variant="link" onClick={handleShowCreateAccountModal}>
                   Don&apos;t have an account? Sign up
                 </Button>
-                </div>
+              </div>
             </Form>
           </div>
         </div>
       </div>
-      {showForgotPasswordModal && <ForgotPasswordModal handleClose={handleCloseForgotPassword} show={showForgotPasswordModal} />}
-      {showCreateAccountModal && <CreateAccountModal handleClose={handleCloseAccountModal} show={showCreateAccountModal} />}
-
+      {showForgotPasswordModal && (
+        <ForgotPasswordModal
+          handleClose={handleCloseForgotPassword}
+          show={showForgotPasswordModal}
+        />
+      )}
+      {showCreateAccountModal && (
+        <CreateAccountModal
+          handleClose={handleCloseAccountModal}
+          show={showCreateAccountModal}
+        />
+      )}
     </div>
   );
 }
