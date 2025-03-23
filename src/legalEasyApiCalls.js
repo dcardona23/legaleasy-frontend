@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 /*--------------------------- REGISTER USER ---------------------------*/
 export const registerUser = async ({
   firstName,
@@ -7,67 +9,47 @@ export const registerUser = async ({
   password_confirmation,
 }) => {
   if (!firstName || !lastName || !email || !password) {
-    console.error("All fields are required");
-    return;
+    return { success: false, message: "All fields are required" };
   }
 
   try {
-    const response = await fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          password: password,
-          password_confirmation: password_confirmation,
+    const response = await axios.post("http://localhost:3000/users", {
+      user: {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
         },
-      }),
-    });
+      })
 
-    const data = await response.json();
+      return { success: true, data: response.data }
 
-    if (!response.ok) {
-      console.error("Error during registration:", data.errors);
-      const errorMessages = data.errors.join(", ");
-      throw new Error(errorMessages);
-    }
-
-    console.log("User registered successfully:", data);
-  } catch (error) {
-    console.error("Error during registration:", error.message);
+    } catch (error) {
+      const errorMessage = error.response?.data?.errors
+      ? error.response.data.errors.join(", ")
+      : error.message || "An unexpected error occurred";
+      return { success: false, message: errorMessage }
   }
 };
 
 /*--------------------------- CREATE SESSION ---------------------------*/
 export const createSession = async ({ email, password }) => {
   try {
-    const response = await fetch("http://localhost:3000/users/sign_in", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    const response = await axios.post("http://localhost:3000/users/sign_in", {
         user: {
           email: email,
           password: password,
         },
-      }),
-    });
+      })
 
-    const data = await response.json();
+      return { success: true, data: response.data }
 
-    if (!response.ok) {
-      console.error("Error during session:", data.errors);
-      const errorMessages = data.errors.join(", ");
-      throw new Error(errorMessages);
-    }
-
-    console.log("Session started successfully.");
-  } catch (error) {
-    console.error("Error during registration:", error.message);
+    } catch (error) {
+      const errorMessage = error.response?.data?.errors
+      ? error.response.data.errors.join(", ")
+      : error.message || "An unexpected error occurred";
+      console.error("Error during session creation:", errorMessage);
+      return { success: false, message: errorMessage }
   }
-};
+}
