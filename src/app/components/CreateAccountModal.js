@@ -10,15 +10,40 @@ function CreateAccountModal({ handleClose, show }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     if (password !== confirmPassword) {
-      alert('Passwords do not match!')
+      setError('Passwords do not match!')
       return
     }
-    registerUser({ firstName, lastName, email, password, password_confirmation: confirmPassword })
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await registerUser({ firstName, lastName, email, password, password_confirmation: confirmPassword })
+
+      if (!response.success) {
+        setError(response.message)
+        return
+      }
+
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      handleClose();
+
+    } catch (error) {
+      setError(error.message)
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -29,7 +54,7 @@ function CreateAccountModal({ handleClose, show }) {
         <Modal.Dialog style={{ margin: '20px' }}>
           <Modal.Header closeButton>
             <Modal.Title className="text-center w-100 d-flex flex-column align-items-center">
-              <h1>Welcome to LegalEasy</h1>
+              <h1>Sign up for a LegalEasy Account</h1>
             </Modal.Title>
           </Modal.Header>
           <Form onSubmit={handleSubmit}>
@@ -70,9 +95,10 @@ function CreateAccountModal({ handleClose, show }) {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Form.Group>
+            { error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
           <Modal.Footer className="justify-between">
-            <Button variant="primary" type="submit">
-              Create Account
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? 'Creating Account...' : 'Create Account'}
             </Button>
             <Button variant="secondary" onClick={handleClose}>
               Have an Account?
