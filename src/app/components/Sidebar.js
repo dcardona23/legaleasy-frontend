@@ -20,13 +20,7 @@ function Sidebar() {
         style={{ width: "20%", fontSize: "1.5em" }}
       >
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a
-            href="/"
-            className="text-decoration-none"
-            style={{ color: "inherit", fontSize: "2em" }}
-          >
-            LegalEasy
-          </a>
+          <Link href="/" className="text-decoration-none" style={{ color: "inherit", fontSize: "2em" }}>LegalEasy</Link>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
