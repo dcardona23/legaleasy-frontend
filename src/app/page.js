@@ -31,10 +31,10 @@ export default function Home() {
       if (response.success) {
         router.push("/dashboard");
       } else {
-        setLoginError("Invalid email or password.")
+        setLoginError("Invalid email or password.");
       }
     } catch (error) {
-      setLoginError("An error occurred while trying to log in.")
+      setLoginError("An error occurred while trying to log in.");
     }
   };
 
