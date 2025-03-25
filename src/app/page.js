@@ -6,12 +6,15 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "next/image";
 import { createSession } from "@/legalEasyApiCalls";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+  const router = useRouter();
 
   const handleCloseForgotPassword = () => setShowForgotPasswordModal(false);
   const handleCloseAccountModal = () => setShowCreateAccountModal(false);
@@ -19,9 +22,20 @@ export default function Home() {
   const handleShowForgotPasswordModal = () => setShowForgotPasswordModal(true);
   const handleShowCreateAccountModal = () => setShowCreateAccountModal(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createSession({ email, password });
+
+    try {
+      const response = await createSession({ email, password });
+
+      if (response.success) {
+        router.push("/dashboard");
+      } else {
+        setLoginError("Invalid email or password.");
+      }
+    } catch (error) {
+      setLoginError("An error occurred while trying to log in.");
+    }
   };
 
   return (
