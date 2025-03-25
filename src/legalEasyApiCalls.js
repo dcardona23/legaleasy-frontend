@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 /*--------------------------- REGISTER USER ---------------------------*/
 export const registerUser = async ({
@@ -20,16 +20,15 @@ export const registerUser = async ({
         email: email,
         password: password,
         password_confirmation: password_confirmation,
-        },
-      })
+      },
+    });
 
-      return { success: true, data: response.data }
-
-    } catch (error) {
-      const errorMessage = error.response?.data?.errors
+    return { success: true, data: response.data };
+  } catch (error) {
+    const errorMessage = error.response?.data?.errors
       ? error.response.data.errors.join(", ")
       : error.message || "An unexpected error occurred";
-      return { success: false, message: errorMessage }
+    return { success: false, message: errorMessage };
   }
 };
 
@@ -37,19 +36,19 @@ export const registerUser = async ({
 export const createSession = async ({ email, password }) => {
   try {
     const response = await axios.post("http://localhost:3000/users/sign_in", {
-        user: {
-          email: email,
-          password: password,
-        },
-      })
+      user: {
+        email: email,
+        password: password,
+      },
+    });
 
-      return { success: true, data: response.data }
-
-    } catch (error) {
-      const errorMessage = error.response?.data?.errors
+    return { success: true, data: response.data };
+    
+  } catch (error) {
+    const errorMessage = error.response?.data?.errors
       ? error.response.data.errors.join(", ")
       : error.message || "An unexpected error occurred";
-      console.error("Error during session creation:", errorMessage);
-      return { success: false, message: errorMessage }
+    console.error("Error during session creation:", errorMessage);
+    return { success: false, message: errorMessage };
   }
-}
+};

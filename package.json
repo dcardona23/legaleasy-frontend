@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 3001",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,11 +13,14 @@
   "dependencies": {
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
-    "next": "15.2.2",
-    "react": "^19.0.0",
+    "cdbreact": "^1.5.19",
+    "next": "^15.2.4",
+    "react": "^18.2.0",
     "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.0.0",
-    "react-error-boundary": "^5.0.0"
+    "react-bootstrap-sidebar-menu": "^2.0.3",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^5.0.0",
+    "react-pro-sidebar": "^1.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
