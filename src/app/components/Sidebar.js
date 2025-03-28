@@ -1,4 +1,5 @@
 "use client";
+import { endSession } from "@/legalEasyApiCalls";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -8,8 +9,15 @@ import {
   CDBSidebarMenuItem,
 } from "cdbreact";
 import Link from "next/link";
+import Button from 'react-bootstrap/Button'
 
 function Sidebar() {
+
+  const handleLogout = async (e) => {
+    e.preventDefault()
+    endSession()
+  }
+
   return (
     <div
       style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
@@ -38,7 +46,7 @@ function Sidebar() {
         </CDBSidebarContent>
 
         <CDBSidebarFooter style={{ textAlign: "center" }}>
-          <div style={{ padding: "20px 5px" }}>Sidebar Footer</div>
+          <Button variant="link" className="text-decoration-none" style={{ color: "inherit", fontSize: "1em" }} onClick={handleLogout}>Logout</Button>
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>
