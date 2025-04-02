@@ -10,12 +10,16 @@ export const registerUser = async ({
   password,
   password_confirmation,
 }) => {
-  if (!firstName || !lastName || !email || !password) {
-    return { success: false, message: "All fields are required" };
+  if (!email || !password) {
+    return { success: false, message: "Email and password are required" };
+  }
+
+  if (password !== password_confirmation) {
+    return { success: false, message: "Passwords do not match" }
   }
 
   try {
-    const response = await axios.post(`${apiUrl}users`, {
+    const response = await axios.post(`${apiUrl}users/signup`, {
       user: {
         first_name: firstName,
         last_name: lastName,
@@ -37,20 +41,16 @@ export const registerUser = async ({
 /*--------------------------- CREATE SESSION ---------------------------*/
 export const createSession = async ({ email, password }) => {
   try {
-    const response = await axios.post(`${apiUrl}users/sign_in`, {
-      user: {
-        email: email,
-        password: password,
-      },
+    const response = await axios.post(`${apiUrl}users/login`, {
+      user: { email, password },
     });
 
-    const token = response.data.token
+    const token = response.data.status.data.token
 
     if (token) {
       localStorage.setItem("jwt_token", token)
     }
 
-    console.log("User logged in successfully:", response.data)
     return { success: true, data: response.data, token };
     
   } catch (error) {
@@ -64,33 +64,31 @@ export const createSession = async ({ email, password }) => {
 
 /*--------------------------- END SESSION ---------------------------*/
 export const endSession = async () => {
-  const token = localStorage.getItem("jwt_token")
+  const token = localStorage.getItem("jwt_token");
 
   if (!token) {
-    console.error("User is not authenticated")
-      return
+    console.error("User is not authenticated");
+    return { success: false, message: "User is not authenticated" };
   }
 
   try {
-    const response = await axios.delete(`${apiUrl}users/sign_out`, {
+    const response = await axios.delete(`${apiUrl}/users/logout`, {
       headers: {
         "Authorization": `Bearer ${token}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        "Accept": "application/json",
+        "Content-Type": "application/json",
       },
     });
 
-    localStorage.removeItem("jwt_token")
+    console.log("Response from logout:", response);
 
-    console.log("User logged out successfully:", response.data)
-    return { success: true, message: "User logged out successfully" 
+    localStorage.removeItem("jwt_token");
 
-    }
+    return { success: true, message: "User logged out successfully" };
   } catch (error) {
-    const errorMessage = error.response?.data?.errors
-      ? error.response.data.errors.join(", ")
-      : error.message || "An unexpected error occurred";
+    const errorMessage =
+      error.response?.data?.errors?.join(", ") || error.message || "An unexpected error occurred";
     console.error("Error during session termination:", errorMessage);
     return { success: false, message: errorMessage };
   }
-}
+};
