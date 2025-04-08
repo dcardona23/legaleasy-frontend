@@ -17,7 +17,7 @@ function DashboardFooter() {
             <Col md={3}>
               <h5>Quick Links</h5>
               <Nav className="flex-column">
-                <NavLink href="#" className="text-white-50 ps-0">Forms</NavLink>
+                <NavLink href="#" className="text-white-50 ps-0">Available Forms</NavLink>
                 <NavLink href="#" className="text-white-50 ps-0">Resources</NavLink>
                 <NavLink href="#" className="text-white-50 ps-0">Support</NavLink>
               </Nav>
@@ -33,13 +33,12 @@ function DashboardFooter() {
             <Col md={3}>
               <h5>Contact</h5>
               <Stack gap={2} className="text-white-50">
-                <span>support@legalease.com</span>
-                <span>1-800-LEGAL-HELP</span>
+                <span>support@legaleasy.com</span>
               </Stack>
             </Col>
           </Row>
           <div className="text-center mt-4 pt-4 border-top border-secondary">
-            <p className="text-white-50 mb-0">© 2025 LegalEasy. All rights reserved.</p>
+            <p className="text-white-50 mb-0">© 2025 LegalEasy.  All rights reserved.</p>
           </div>
         </Container>
       </footer>
