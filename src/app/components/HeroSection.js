@@ -10,8 +10,8 @@ function HeroSection() {
   <Container className="py-5">
     <Row className="justify-content-center text-center">
       <Col md={8}>
-        <h1 className="display-4 fw-bold mb-2 mt-4">Take Control of your Legal Journey</h1>
-        <p className="lead mb-4">Guide yourself through legal paperwork with our user-friendly, step-by-step interface.</p>
+        <h1 className="display-3 fw-bold mb-2 mt-4">Take Control of your Legal Journey</h1>
+        <p className="lead mb-4">Guide yourself through legal paperwork with our step-by-step, user-friendly interface.</p>
         <Stack direction="horizontal" gap={3} className="justify-content-center">
           <Button variant="light" size="lg">Available Forms</Button>
           <Button variant="outline-light" size="lg">Learn More About LegalEasy</Button>
