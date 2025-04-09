@@ -1,10 +1,14 @@
+"use client";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
+import { useRouter } from "next/navigation";
 
 function HeroSection() {
+  const router = useRouter();
+
   return (
   <Container fluid className="bg-success bg-gradient text-white py-5">
   <Container className="py-5">
@@ -14,7 +18,13 @@ function HeroSection() {
         <p className="lead mb-4">Guide yourself through legal paperwork with our user-friendly, step-by-step interface.</p>
         <Stack direction="horizontal" gap={3} className="justify-content-center">
           <Button variant="light" size="lg">Available Forms</Button>
-          <Button variant="outline-light" size="lg">Learn More About LegalEasy</Button>
+          <Button 
+            variant="outline-light link" 
+            size="lg"
+            onClick={() => router.push("/form-finder")}
+          >
+              Need Help Finding a Form?
+          </Button>
         </Stack>
       </Col>
     </Row>
