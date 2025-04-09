@@ -13,8 +13,8 @@ export const postOpenAI = async ({ formInput }) => {
 
   try {
     const response = await axios.post(
-      `${apiUrl}/openai`,
-      { formInput }, // Request body
+      `${apiUrl}openai`,
+      { formInput },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -23,8 +23,8 @@ export const postOpenAI = async ({ formInput }) => {
         },
       }
     );
-
-    return { success: true, data: response.data };
+    
+    return { success: true, data: response.data.response };
   } catch (error) {
     const errorMessage = error.response?.data?.errors
       ? error.response.data.errors.join(", ")

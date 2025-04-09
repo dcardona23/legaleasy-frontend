@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
+const apiUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
 /*--------------------------- REGISTER USER ---------------------------*/
 export const registerUser = async ({
@@ -15,7 +15,7 @@ export const registerUser = async ({
   }
 
   if (password !== password_confirmation) {
-    return { success: false, message: "Passwords do not match" }
+    return { success: false, message: "Passwords do not match" };
   }
 
   try {
@@ -45,14 +45,13 @@ export const createSession = async ({ email, password }) => {
       user: { email, password },
     });
 
-    const token = response.data.status.data.token
+    const token = response.data.status.data.token;
 
     if (token) {
-      localStorage.setItem("jwt_token", token)
+      localStorage.setItem("jwt_token", token);
     }
 
     return { success: true, data: response.data, token };
-    
   } catch (error) {
     const errorMessage = error.response?.data?.errors
       ? error.response.data.errors.join(", ")
@@ -74,20 +73,20 @@ export const endSession = async () => {
   try {
     const response = await axios.delete(`${apiUrl}/users/logout`, {
       headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/json",
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-
-    console.log("Response from logout:", response);
 
     localStorage.removeItem("jwt_token");
 
     return { success: true, message: "User logged out successfully" };
   } catch (error) {
     const errorMessage =
-      error.response?.data?.errors?.join(", ") || error.message || "An unexpected error occurred";
+      error.response?.data?.errors?.join(", ") ||
+      error.message ||
+      "An unexpected error occurred";
     console.error("Error during session termination:", errorMessage);
     return { success: false, message: errorMessage };
   }
