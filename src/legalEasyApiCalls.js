@@ -41,6 +41,7 @@ export const registerUser = async ({
 /*--------------------------- CREATE SESSION ---------------------------*/
 export const createSession = async ({ email, password }) => {
   try {
+    console.log(apiUrl)
     const response = await axios.post(`${apiUrl}users/login`, {
       user: { email, password },
     });
