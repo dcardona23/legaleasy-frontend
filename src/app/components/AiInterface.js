@@ -134,6 +134,7 @@ function AiInterface() {
             <CardBody className="px-4">
               <div dangerouslySetInnerHTML={{ __html: response }} id="aiResponse" className="mt-4">
               </div>
+              <p>Most forms can be found on the <a href="https://www.coloradojudicial.gov/self-help-forms">Colorado Judicial Branch Self Help Website</a></p>
               <Form className="mt-4" onSubmit={handleSubmit}>
                 <FormControl
                   as="textarea"
