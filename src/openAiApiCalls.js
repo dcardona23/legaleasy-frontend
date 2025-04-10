@@ -13,7 +13,7 @@ export const postOpenAI = async ({ formInput }) => {
 
   try {
     const response = await axios.post(
-      `${apiUrl}openai`,
+      `${apiUrl}api/v1/openai`,
       { formInput },
       {
         headers: {
