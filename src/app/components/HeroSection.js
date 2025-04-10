@@ -27,7 +27,11 @@ function HeroSection() {
                 gap={3}
                 className="justify-content-center"
               >
-                <Button variant="light" size="lg">
+                <Button 
+                  variant="light" 
+                  size="lg"
+                  onClick={() => router.push("/available-forms")}
+                >
                   Available Forms
                 </Button>
                 <Button
