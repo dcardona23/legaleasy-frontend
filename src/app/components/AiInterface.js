@@ -29,6 +29,7 @@ function AiInterface() {
       }
 
       setResponse(result.data);
+      console.log(response)
       setFormInput("");
     } catch (error) {
       setError(error.message || "An unexpected error occurred");
@@ -131,8 +132,7 @@ function AiInterface() {
             </div>
 
             <CardBody className="px-4">
-              <div className="mt-4">
-                <p className="lead">{response}</p>
+              <div dangerouslySetInnerHTML={{ __html: response }} id="aiResponse" className="mt-4">
               </div>
               <Form className="mt-4" onSubmit={handleSubmit}>
                 <FormControl
