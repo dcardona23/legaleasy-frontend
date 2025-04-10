@@ -19,7 +19,7 @@ export const registerUser = async ({
   }
 
   try {
-    const response = await axios.post(`${apiUrl}users/signup`, {
+    const response = await axios.post(`${apiUrl}api/v1/users/signup`, {
       user: {
         first_name: firstName,
         last_name: lastName,
@@ -42,7 +42,7 @@ export const registerUser = async ({
 export const createSession = async ({ email, password }) => {
   try {
     console.log(apiUrl)
-    const response = await axios.post(`${apiUrl}users/login`, {
+    const response = await axios.post(`${apiUrl}api/v1/users/login`, {
       user: { email, password },
     });
 
@@ -72,7 +72,7 @@ export const endSession = async () => {
   }
 
   try {
-    const response = await axios.delete(`${apiUrl}/users/logout`, {
+    const response = await axios.delete(`${apiUrl}api/v1/users/logout`, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
